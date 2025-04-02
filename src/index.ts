@@ -4,6 +4,8 @@ import http from "http"
 import compression from "compression"
 import cookieParser from "cookie-parser"
 import bodyParser from "body-parser"
+import addProduct from './test.prisma';
+
 
 
 const app = express()
@@ -20,4 +22,8 @@ const server = http.createServer(app)
 
 server.listen(process.env.PORT, () => {
     console.log("Server is running on", process.env.APP_URL);
+    
 })
+
+addProduct()
+
