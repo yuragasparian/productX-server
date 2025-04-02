@@ -36,3 +36,10 @@ model User {
   user_image String
   products   Products[]
 }
+
+model ProductHistory {
+  id Int @id @default(autoincrement())
+  product_id Int
+  change_made String
+  change_time DateTime @default(now())
+}

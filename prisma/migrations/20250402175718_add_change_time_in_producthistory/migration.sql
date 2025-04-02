@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `producthistory` ADD COLUMN `change_time` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);

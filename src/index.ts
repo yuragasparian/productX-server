@@ -5,6 +5,8 @@ import compression from "compression"
 import cookieParser from "cookie-parser"
 import bodyParser from "body-parser"
 
+import { Products } from "@prisma/client"
+
 const app = express()
 app.use(cors(
     {
@@ -21,4 +23,7 @@ server.listen(process.env.PORT, () => {
     console.log("Server is running on", process.env.APP_URL);
 })
 
+app.get("/products", (req, res) => {
+
+})
 
