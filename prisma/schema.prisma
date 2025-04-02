@@ -8,11 +8,31 @@ datasource db {
 }
 
 model Products {
-  id            Int    @id @default(autoincrement())
-  name          String
-  sku           Int    @unique
-  category      String
-  description   String
-  price         Int
-  stockQuantity Int
+  id                 Int      @id @default(autoincrement())
+  add_date           DateTime @default(now())
+  last_modified_date DateTime @updatedAt
+  name               String
+  sku                Int      @unique
+  description        String   @db.Text
+  price              Int
+  stock_quantity     Int
+  product_image      String
+  category_id        Int
+  adder_id           Int
+  adder              User     @relation(fields: [adder_id], references: [id])
+  category           Category @relation(fields: [category_id], references: [id])
+}
+
+model Category {
+  id       Int        @unique
+  name     String     @unique
+  products Products[]
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  username   String     @unique
+  password   String
+  user_image String
+  products   Products[]
 }
