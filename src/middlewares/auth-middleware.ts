@@ -1,11 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import {UserTokenDecoded} from "../types/jwt/user-token"
+import { UserTokenDecoded } from "../types/jwt/user-token"
 const jwtSecret = process.env.JWT_SECRET;
-
-interface AuthenticatedRequest extends Request {
-  user?: JwtPayload | string;
-}
 
 const authMiddleware = (
   req: Request,
@@ -16,7 +12,9 @@ const authMiddleware = (
     throw new Error("JWT_SECRET not defined in environment variables.");
   }
 
-  const token:string = req.cookies.token;
+  const token: string = req.cookies.token;
+
+  console.log("Cookies:", JSON.stringify(req.cookies));
 
   if (!token) {
     res.status(401).json({ message: "Token not provided" });
@@ -26,9 +24,12 @@ const authMiddleware = (
   try {
     const decoded = jwt.verify(token, jwtSecret) as UserTokenDecoded;
     req.userId = decoded.userId
-    console.log('Decoded user ID:', decoded.userId);
-    console.log('Attached to req.userId:', req.userId);
-    next();
+    if (!req.userId) {
+      res.status(401).json({ message: "Invalid token" });
+      return
+    }
+    next()
+
   } catch (error) {
     res.status(401).json({ message: "Invalid or expired token" });
     return

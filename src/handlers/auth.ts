@@ -6,7 +6,7 @@ import { generateJWT } from "../services/generate-jwt";
 
 export async function authUser(req: Request<{}, {}, User>, res: Response) {
     const { username, password } = req.body
-    const user = await verifyUser(username)
+    const user = await verifyUser({username})
     const { data } = user
     
 
@@ -25,7 +25,13 @@ export async function authUser(req: Request<{}, {}, User>, res: Response) {
                 username: data.username,
                 image: data.user_image
             }
-            res.status(200).cookie("token", token).json({ success: true, userData, message: `Welcome @${data.username}`})
+            res.cookie("token", token, {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: false,
+                maxAge: 1000 * 60 * 60 * 24 * 5 // 5 days
+              });
+            res.status(200).json({ success: true, userData, message: `Welcome @${data.username}`})
         }
     }
 

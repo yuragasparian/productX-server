@@ -7,14 +7,19 @@ type TReturn = Promise<{
     data: User | null
 }>
 
-export default async function verifyUser(username: string): TReturn {
+type Params = {
+    username?: string,
+    id?: number
+}
+
+export default async function verifyUser({username, id}:Params): TReturn {
     const user = await prisma.user.findUnique({
-        where: { username }
+        where: username ? { username } : { id },
     })
     if (user) {
         return {
             success: true,
-            data:user
+            data: user
         }
     }
     else return {
