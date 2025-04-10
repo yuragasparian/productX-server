@@ -6,7 +6,7 @@ import identifyUser from "../handlers/identify-user";
 
 const authRouter = Router();
 
-authRouter.post("/", authUser)
-authRouter.get("/identify", authMiddleware, identifyUser)
+authRouter.post("/login", authUser)
+authRouter.get("/me", authMiddleware, identifyUser)
 
 export default authRouter

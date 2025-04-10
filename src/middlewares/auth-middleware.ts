@@ -14,8 +14,6 @@ const authMiddleware = (
 
   const token: string = req.cookies.token;
 
-  console.log("Cookies:", JSON.stringify(req.cookies));
-
   if (!token) {
     res.status(401).json({ message: "Token not provided" });
     return

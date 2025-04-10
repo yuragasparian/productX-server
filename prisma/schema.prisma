@@ -8,19 +8,20 @@ datasource db {
 }
 
 model Products {
-  id                 Int      @id @default(autoincrement())
-  add_date           DateTime @default(now())
-  last_modified_date DateTime @updatedAt
+  id                 Int              @id @default(autoincrement())
+  add_date           DateTime         @default(now())
+  last_modified_date DateTime         @updatedAt
   name               String
-  sku                Int      @unique
-  description        String   @db.Text
+  sku                Int              @unique
+  description        String           @db.Text
   price              Int
   stock_quantity     Int
   product_image      String
   category_id        Int
   adder_id           Int
-  adder              User     @relation(fields: [adder_id], references: [id])
-  category           Category @relation(fields: [category_id], references: [id])
+  adder              User             @relation(fields: [adder_id], references: [id])
+  category           Category         @relation(fields: [category_id], references: [id])
+  history            ProductHistory[]
 }
 
 model Category {
@@ -38,8 +39,9 @@ model User {
 }
 
 model ProductHistory {
-  id Int @id @default(autoincrement())
-  product_id Int
+  id          Int      @id @default(autoincrement())
+  product_id  Int
   change_made String
   change_time DateTime @default(now())
+  product     Products @relation(fields: [product_id], references: [id])
 }

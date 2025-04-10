@@ -6,9 +6,9 @@ export default async function identifyUser(req: Request, res: Response) {
     const user = await verifyUser({ id: req.userId })
     if(!user.data) return
     const userData = {
-        userId: user.data.id,
+        id: user.data.id,
         username: user.data.username,
-        image: user.data.user_image
+        user_image: `${process.env.APP_URL}/${user.data.user_image}.jpg`
     }
     res.json(userData)
 }
