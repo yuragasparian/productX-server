@@ -16,7 +16,7 @@ export async function authUser(req: Request<{}, {}, User>, res: Response) {
     else {
         const passwordMatches = await bcrypt.compare(password, data.password)
         if (!passwordMatches) {
-            res.status(404).json({ success: false, message: `Wrong password for user @${data.username}` })
+            res.send({ success: false, message: `Wrong password for user @${data.username}` })
         }
         else {
             const token = generateJWT({ username: data.username, userId: data.id})

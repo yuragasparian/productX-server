@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient, Products } from '@prisma/client';
+import imageActualPath from './../../services/image-actual-path';
 
 
 type ReturnType = {
@@ -15,7 +16,7 @@ export async function getProducts(req: Request, res: Response<ReturnType>) {
 
     const products = await prisma.products.findMany({
         where: { adder_id: userId },
-        include: { category: true, history: true },
+        include: { history: true },
         orderBy: { add_date: 'desc' },
         skip: (page - 1) * pageSize,
         take: pageSize,
@@ -24,6 +25,6 @@ export async function getProducts(req: Request, res: Response<ReturnType>) {
     const totalProducts = await prisma.products.count({
         where: { adder_id: userId }
     });
+    res.status(200).json({ products:imageActualPath(products), totalProducts })
 
-    res.status(200).json({ products, totalProducts })
 }

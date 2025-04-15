@@ -17,17 +17,23 @@ model Products {
   price              Int
   stock_quantity     Int
   product_image      String
-  category_id        Int
   adder_id           Int
+  category           ProductCategory
   adder              User             @relation(fields: [adder_id], references: [id])
-  category           Category         @relation(fields: [category_id], references: [id])
   history            ProductHistory[]
 }
 
-model Category {
-  id       Int        @unique
-  name     String     @unique
-  products Products[]
+enum ProductCategory {
+  Electronics
+  Clothing
+  Home_Appliances
+  Books
+  Beauty
+  Sports
+  Food
+  Furniture
+  Toys
+  Automotive
 }
 
 model User {
