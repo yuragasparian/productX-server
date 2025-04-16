@@ -20,18 +20,8 @@ export async function authUser(req: Request<{}, {}, User>, res: Response) {
         }
         else {
             const token = generateJWT({ username: data.username, userId: data.id})
-            const userData = {
-                userId: data.id,
-                username: data.username,
-                image: data.user_image
-            }
-            res.cookie("token", token, {
-                httpOnly: true,
-                sameSite: "lax",
-                secure: false,
-                maxAge: 1000 * 60 * 60 * 24 * 5 // 5 days
-              });
-            res.status(200).json({ success: true, userData, message: `Welcome @${data.username}`})
+
+            res.status(200).json({ success: true, token, message: `Welcome @${data.username}`})
         }
     }
 

@@ -1,4 +1,4 @@
-import express, { json, raw } from "express"
+import express, { json, raw, urlencoded } from "express"
 import cors from "cors"
 import http, { get } from "http"
 import compression from "compression"
@@ -10,14 +10,13 @@ import authRouter from "./routes/auth"
 import dotenv from "dotenv"
 import path, { join, resolve } from "path"
 import fs, { existsSync } from 'fs';
-import { error } from "console"
 
 dotenv.config()
 const ORIGIN_URL = process.env.ORIGIN_URL
 
 const app = express()
 
-app.use(express.json())
+app.use(express.json());
 app.use(cors(
     {
         origin: ORIGIN_URL,
