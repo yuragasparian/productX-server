@@ -1,29 +1,23 @@
 import { Products } from "@prisma/client";
 
-const castFormValues = (data: Products) => {
-    const result: Record<string, any> = {};
-  
-    for (const [key, value] of Object.entries(data)) {
-      if (typeof value === "string") {
-        const trimmed = value.trim();
-  
-        // Cast numeric strings to numbers
-        if (trimmed !== "" && !isNaN(Number(trimmed))) {
-          result[key] = Number(trimmed);
-        }
-        // Optional: cast boolean strings
-        else if (trimmed === "true" || trimmed === "false") {
-          result[key] = trimmed === "true";
-        } else {
-          result[key] = trimmed;
-        }
-      } else {
-        result[key] = value; // already correct type
-      }
-    }
-  
-    return result;
-  };
-  
+const numericValues = ["sku", "price", "stock_quantity", "adder_id"];
 
-  export default castFormValues
+const castFormValues = (data: Products) => {
+  const result: Record<string, any> = {};
+
+  for (const [key, value] of Object.entries(data)) {
+    const trimmed = typeof value === "string" ? value.trim() : value;
+
+    if (numericValues.includes(key)) {
+      // If it's a numeric field, set to null if it's an invalid number
+      result[key] = trimmed !== "" && !isNaN(Number(trimmed)) ? Number(trimmed) : null;
+    } else {
+      // For non-numeric fields, just set the trimmed string
+      result[key] = trimmed;
+    }
+  }
+
+  return result;
+};
+
+export default castFormValues;

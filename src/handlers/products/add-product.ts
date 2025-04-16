@@ -2,7 +2,7 @@ import { json, Request, Response } from "express";
 import { PrismaClient, Products } from "@prisma/client";
 import castFormValues from "../../services/cast-form-values";
 import { addHistory } from "./add-history";
-import { verifySKU } from "../../services/verifySKU";
+import { verifySKU } from "../../services/verify-sku";
 
 export async function addProduct(req: Request<{}, {}, Products>, res: Response) {
 
@@ -17,7 +17,7 @@ export async function addProduct(req: Request<{}, {}, Products>, res: Response) 
         return
     }
     if(!skuIsValid) {
-        res.send({success:false, message:"SKU already exists"})
+        res.send({success:false, message:"SKU is not valid or already exists"})
         return
     }
 
@@ -26,9 +26,13 @@ export async function addProduct(req: Request<{}, {}, Products>, res: Response) 
         ...(product_image != undefined ? { product_image } : {product_image:"no-product-image.jpg"}),
         adder_id,
     };
-
-    const productData = castFormValues(rawData) as Products;
-
+    
+    const productData = castFormValues(rawData) as Products & {ts:null};
+    
+    if(Object.values(productData).includes(null)){
+        res.send({success:false, message:"Form data contains missing or invalid values."})
+        return
+    }
 
     try {
         const prisma = new PrismaClient()

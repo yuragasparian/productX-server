@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { PrismaClient, Products } from "@prisma/client";
 import castFormValues from "../../services/cast-form-values";
 import { generateChangedHistory } from "../../services/generate-changed-history";
-import { verifySKU } from "../../services/verifySKU";
+import { verifySKU } from "../../services/verify-sku";
 
 export async function editProduct(req: Request<{id:string}, {}, Products>, res: Response) {
 
@@ -19,7 +19,7 @@ export async function editProduct(req: Request<{id:string}, {}, Products>, res: 
     if(product.sku) {
         const skuIsValid = await verifySKU(product.sku)    
         if(!skuIsValid) {
-            res.send({success:false, message:"SKU already exists"})
+            res.send({success:false, message:"SKU is not valid or already exists"})
             return
         }
     }
