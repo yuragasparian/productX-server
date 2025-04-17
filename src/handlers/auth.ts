@@ -11,7 +11,7 @@ export async function authUser(req: Request<{}, {}, User>, res: Response) {
     
 
     if (!user.success || !data) {
-        res.status(404).json({ success: false, message: "Username does not exist" })
+        res.send({ success: false, message: "Username does not exist" })
     }
     else {
         const passwordMatches = await bcrypt.compare(password, data.password)
@@ -20,7 +20,6 @@ export async function authUser(req: Request<{}, {}, User>, res: Response) {
         }
         else {
             const token = generateJWT({ username: data.username, userId: data.id})
-
             res.status(200).json({ success: true, token, message: `Welcome @${data.username}`})
         }
     }
