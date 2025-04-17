@@ -33,19 +33,15 @@ export async function editProduct(req: Request<{id:string}, {}, Products>, res: 
 
     const productData = castFormValues(rawData) as Partial<Products>;
 
-
-
     try {
         const prisma = new PrismaClient()
         const updatedProduct = await prisma.products.update({
             where: { id: productId, adder_id },
             data: productData
         });
-        generateChangedHistory(productData, productId)
-        console.log(productData);
+        generateChangedHistory(productData, productId)     
         
-        
-        res.send(updatedProduct)
+        res.send({success:true})
         return
     }
     catch (err) {
