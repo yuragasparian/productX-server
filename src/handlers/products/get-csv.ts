@@ -14,5 +14,4 @@ export async function exportProductsCSV(req: Request, res: Response) {
   res.header("Content-Type", "text/csv");
   res.attachment("products.csv");
   res.send(csv);
-  return 
 }

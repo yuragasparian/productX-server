@@ -37,7 +37,7 @@ export async function addProduct(req: Request<{}, {}, Products>, res: Response) 
     try {
         const prisma = new PrismaClient()
         const data = await prisma.products.create({ data: productData })
-        const historyAdded = addHistory({product_id:data.id, change_made:"Product has been created"})
+        await addHistory({product_id:data.id, change_made:"Product has been created"})
         res.send({success:true})
         return
     }

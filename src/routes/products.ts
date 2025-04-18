@@ -1,5 +1,4 @@
 import { Router } from "express";
-import authMiddleware from "../middlewares/auth-middleware";
 import { getProducts } from "../handlers/products/get-products";
 import { addProduct } from "../handlers/products/add-product";
 import { upload } from "../middlewares/upload";
@@ -10,14 +9,14 @@ import { exportProductsCSV } from "../handlers/products/get-csv";
 
 const productRouter = Router();
 
-productRouter.get("/", authMiddleware, getProducts)
+productRouter.get("/", getProducts)
 
-productRouter.get("/csv", authMiddleware, exportProductsCSV)
+productRouter.get("/csv", exportProductsCSV)
 
-productRouter.post("/new", upload.single('image'), authMiddleware, addProduct)
+productRouter.post("/", upload.single('image'), addProduct)
 
-productRouter.patch("/edit/:id", upload.single('image'), authMiddleware, editProduct)
+productRouter.put("/:id", upload.single('image'), editProduct)
 
-productRouter.delete("/delete/:id", authMiddleware, deleteProduct)
+productRouter.delete("/:id", deleteProduct)
 
 export default productRouter

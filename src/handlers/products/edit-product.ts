@@ -35,7 +35,7 @@ export async function editProduct(req: Request<{id:string}, {}, Products>, res: 
 
     try {
         const prisma = new PrismaClient()
-        const updatedProduct = await prisma.products.update({
+        await prisma.products.update({
             where: { id: productId, adder_id },
             data: productData
         });

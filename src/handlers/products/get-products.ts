@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PrismaClient, Products } from '@prisma/client';
+import { Prisma, PrismaClient, Products } from '@prisma/client';
 import imageActualPath from './../../services/image-actual-path';
 
 type ReturnType = {
@@ -12,7 +12,7 @@ export async function getProducts(req: Request, res: Response<ReturnType>) {
   const page = parseInt(req.query.page as string) || 1;
   const { query, status } = req.query;
 
-  const pageSize = 6;
+  const pageSize = 10; // rowsPerPage
   const prisma = new PrismaClient();
 
   const statusFilter = {
@@ -21,8 +21,9 @@ export async function getProducts(req: Request, res: Response<ReturnType>) {
     in_stock: { stock_quantity: { gte: 20 } },
   } as const;
 
-  const filters: any = {
+  const filters: Prisma.ProductsWhereInput = {
     adder_id: userId,
+   
   };
 
   // Add status filter if valid

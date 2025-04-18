@@ -7,26 +7,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Products {
-  id                 Int              @id @default(autoincrement())
-  add_date           DateTime         @default(now())
-  last_modified_date DateTime         @updatedAt
-  name               String
-  sku                Int              @unique
-  description        String           @db.Text
-  price              Int
-  stock_quantity     Int
-  product_image      String
-  adder_id           Int
-  category           ProductCategory
-  adder              User             @relation(fields: [adder_id], references: [id])
-  history            ProductHistory[]
+model Product {
+  id            Int              @id @default(autoincrement())
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  name          String
+  sku           Int              @unique
+  description   String           @db.Text
+  price         Int
+  stockQuantity Int
+  image         String
+  creatorId     Int
+  category      ProductCategory
+  creator       User             @relation(fields: [creatorId], references: [id])
+  history       ProductHistory[]
+}
+
+
+model User {
+  id       Int       @id @default(autoincrement())
+  userName String    @unique
+  password String
+  image    String
+  products Product[]
+}
+
+model ProductHistory {
+  id                Int      @id @default(autoincrement())
+  productId         Int
+  changeDescription String
+  changedAt         DateTime @default(now())
+  product           Product  @relation(fields: [productId], references: [id])
 }
 
 enum ProductCategory {
   Electronics
   Clothing
-  Home_Appliances
+  HomeAppliances
   Books
   Beauty
   Sports
@@ -34,20 +51,4 @@ enum ProductCategory {
   Furniture
   Toys
   Automotive
-}
-
-model User {
-  id         Int        @id @default(autoincrement())
-  username   String     @unique
-  password   String
-  user_image String
-  products   Products[]
-}
-
-model ProductHistory {
-  id          Int      @id @default(autoincrement())
-  product_id  Int
-  change_made String
-  change_time DateTime @default(now())
-  product     Products @relation(fields: [product_id], references: [id])
 }

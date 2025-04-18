@@ -1,17 +1,14 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { UserTokenDecoded } from "../types/jwt/user-token";
+import { env } from "../services/env";
 
-const jwtSecret = process.env.JWT_SECRET;
 
 const authMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
 ): void => {
-  if (!jwtSecret) {
-    throw new Error("JWT_SECRET not defined in environment variables.");
-  }
 
   const token: string | undefined = req.headers.authorization?.split(" ")[1];
 
@@ -21,7 +18,7 @@ const authMiddleware = (
   }
 
   try {
-    const decoded = jwt.verify(token, jwtSecret) as UserTokenDecoded;
+    const decoded = jwt.verify(token, env.JWT_SECRET) as UserTokenDecoded;
     req.userId = decoded.userId;
 
     if (!req.userId) {
