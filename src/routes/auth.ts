@@ -5,8 +5,8 @@ import userInfo from "../handlers/user-info";
 
 const authRouter = Router();
 
-authRouter.post("/login", authUser)
+authRouter.post("/login", authUser);
 
-authRouter.get("/me", authMiddleware, userInfo)
+authRouter.get("/me", authMiddleware, userInfo);
 
-export default authRouter
+export default authRouter;

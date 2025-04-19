@@ -10,7 +10,8 @@ const castFormValues = (data: Products) => {
 
     if (numericValues.includes(key)) {
       // If it's a numeric field, set to null if it's an invalid number
-      result[key] = trimmed !== "" && !isNaN(Number(trimmed)) ? Number(trimmed) : null;
+      result[key] =
+        trimmed !== "" && !isNaN(Number(trimmed)) ? Number(trimmed) : null;
     } else {
       // For non-numeric fields, just set the trimmed string
       result[key] = trimmed;

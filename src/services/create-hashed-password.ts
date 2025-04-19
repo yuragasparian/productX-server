@@ -1,12 +1,11 @@
-import bcrypt, { hash } from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
-const createHashedPassword = async (password:string) => {
-    const salt = await bcrypt.genSalt(5);
-    const pass = await bcrypt.hash(password, salt);
-    console.log(pass);
-}
+const createHashedPassword = async (password: string) => {
+  const salt = await bcrypt.genSalt(5);
+  const pass = await bcrypt.hash(password, salt);
+  console.log(pass);
+};
 
-createHashedPassword("admin")
+createHashedPassword("admin");
 
-
-export default createHashedPassword
+export default createHashedPassword;

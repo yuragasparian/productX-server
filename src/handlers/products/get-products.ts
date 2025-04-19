@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { Prisma, PrismaClient, Products } from '@prisma/client';
-import imageActualPath from './../../services/image-actual-path';
+import { Prisma, PrismaClient, Product } from "@prisma/client";
+import imageActualPath from "../../services/image-actual-path";
 
 type ReturnType = {
-  products: Products[];
+  products: Product[];
   totalProducts: number;
 };
 
@@ -23,7 +23,6 @@ export async function getProducts(req: Request, res: Response<ReturnType>) {
 
   const filters: Prisma.ProductsWhereInput = {
     adder_id: userId,
-   
   };
 
   // Add status filter if valid
@@ -34,14 +33,14 @@ export async function getProducts(req: Request, res: Response<ReturnType>) {
   // Add search query filter
   if (query && typeof query === "string") {
     filters.name = {
-      contains: query
+      contains: query,
     };
   }
 
   const products = await prisma.products.findMany({
     where: filters,
     include: { history: true },
-    orderBy: { add_date: 'desc' },
+    orderBy: { add_date: "desc" },
     skip: (page - 1) * pageSize,
     take: pageSize,
   });

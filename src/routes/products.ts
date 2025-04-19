@@ -6,17 +6,16 @@ import { editProduct } from "../handlers/products/edit-product";
 import { deleteProduct } from "../handlers/products/delete-product";
 import { exportProductsCSV } from "../handlers/products/get-csv";
 
-
 const productRouter = Router();
 
-productRouter.get("/", getProducts)
+productRouter.get("/", getProducts);
 
-productRouter.get("/csv", exportProductsCSV)
+productRouter.get("/csv", exportProductsCSV);
 
-productRouter.post("/", upload.single('image'), addProduct)
+productRouter.post("/", upload.single("image"), addProduct);
 
-productRouter.put("/:id", upload.single('image'), editProduct)
+productRouter.put("/:id", upload.single("image"), editProduct);
 
-productRouter.delete("/:id", deleteProduct)
+productRouter.delete("/:id", deleteProduct);
 
-export default productRouter
+export default productRouter;

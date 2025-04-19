@@ -1,15 +1,13 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { UserTokenDecoded } from "../types/jwt/user-token";
 import { env } from "../services/env";
 
-
 const authMiddleware = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
-
   const token: string | undefined = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -27,7 +25,6 @@ const authMiddleware = (
     }
 
     next();
-
   } catch (error) {
     res.status(401).json({ message: "Invalid or expired token" });
     return;

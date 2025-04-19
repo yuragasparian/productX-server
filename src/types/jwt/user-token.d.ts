@@ -1,4 +1,4 @@
 export type UserTokenDecoded = {
-    username: string,
-    userId: number
-}
+  username: string;
+  userId: number;
+};
