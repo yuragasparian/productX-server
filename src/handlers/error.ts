@@ -1,25 +1,39 @@
 import type { Response } from "express";
 import type { ErrorResponse } from "@/types/express/response";
 
-const statusMessages = {
-  500: "Internal server error",
-  400: "Invalid username or password",
-  401: "Unauthorized",
-  422: "Product SKU must be unique",
-  409: "Missing required fields for product",
-  404: "Not found",
+const errorMessages = {
+  4001: "Missing required fields for product",
+
+  4010: "Unauthorized",
+  4011: "Invalid username or password",
+
+  4220: "One or more fields contain invalid data",
+
+  4040: "Not found",
+  4041: "Product not found",
+
+  4090: "Username already exists",
+  4091: "Product SKU must be unique",
+
+  5000: "Internal server error",
 } as const;
 
-type StatusCode = keyof typeof statusMessages;
+type ErrorMessages = typeof errorMessages;
+type ErrorCode = keyof ErrorMessages;
 
-const errorHandler = (res: Response, status: StatusCode): void => {
+const errorHandler = (res: Response, code: ErrorCode): void => {
+  const status = Math.floor(code / 10);
   const body: ErrorResponse = {
     meta: {
       status,
-      error: statusMessages[status] ?? null,
+      error: {
+        code,
+        message: errorMessages[code] ?? null,
+      },
     },
     data: null,
   };
+
   res.status(status).send(body);
 };
 

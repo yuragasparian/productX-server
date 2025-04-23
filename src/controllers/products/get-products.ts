@@ -50,5 +50,5 @@ export async function getProducts(
 
   const pages = Math.ceil(totalProducts / rows_per_page);
 
-  successHandler(res, { pages, products });
+  successHandler(res, { items: products, pages });
 }

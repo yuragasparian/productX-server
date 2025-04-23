@@ -19,7 +19,7 @@ const getUserData = async (req: Request, res: Response) => {
     });
     successHandler(res, user);
   } catch {
-    errorHandler(res, 401);
+    errorHandler(res, 4010);
   }
 };
 

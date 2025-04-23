@@ -1,8 +1,11 @@
 import type { Product } from "@prisma/client";
 
 type Meta = {
+  error: {
+    code: number;
+    message: string;
+  } | null;
   status: number;
-  error: string | null;
 };
 
 type Paginated<T> = {
@@ -17,8 +20,4 @@ export type ProductsResponse = {
 export type ErrorResponse = {
   meta: Meta;
   data: null;
-};
-
-export type AuthResponse = {
-  token: string;
 };

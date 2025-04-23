@@ -7,7 +7,7 @@ import prisma from "@/utils/prisma-client";
 const verifyUserPassword = async (
   req: AuthRequest,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ): Promise<void> => {
   const { userName, password } = req.body;
 
@@ -21,7 +21,7 @@ const verifyUserPassword = async (
     req.userId = user.id;
     next();
   } catch {
-    errorHandler(res, 400);
+    errorHandler(res, 4001);
   }
 };
 

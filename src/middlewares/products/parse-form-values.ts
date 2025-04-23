@@ -13,11 +13,15 @@ const parseProductForm = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     fieldsToParse.forEach((field) => {
-      req.body[field] = z.coerce.number().parse(req.body[field]);
+      req.body[field] = z.coerce
+        .number()
+        .int()
+        .positive()
+        .parse(req.body[field]);
     });
     next();
   } catch (err) {
-    errorHandler(res, 409);
+    errorHandler(res, 4220);
   }
 };
 

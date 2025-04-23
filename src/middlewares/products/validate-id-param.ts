@@ -14,7 +14,7 @@ const validateIdParam = async (
 ) => {
   const result = idParamSchema.safeParse(req.params);
   if (!result.success) {
-    return errorHandler(res, 404);
+    return errorHandler(res, 4041);
   }
   req.parsedParams = { id: result.data.id };
   next();

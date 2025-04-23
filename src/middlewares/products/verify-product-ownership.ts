@@ -17,7 +17,7 @@ const verifyProductOwnership = async (
     req.existingProduct = existingProduct;
     next();
   } catch {
-    return errorHandler(res, 404);
+    return errorHandler(res, 4041);
   }
 };
 

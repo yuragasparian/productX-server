@@ -36,10 +36,10 @@ const addProduct = async (
     // ahndling unique sku error
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
-        errorHandler(res, 422);
+        errorHandler(res, 4091);
       }
     }
-    errorHandler(res, 500);
+    errorHandler(res, 5000);
   }
 };
 
