@@ -1,14 +1,24 @@
-export type Meta = {
+import type { Product } from "@prisma/client";
+
+type Meta = {
   status: number;
   error: string | null;
 };
 
-export type BaseResponse<T> = {
-  meta: Meta;
-  data: T;
-};
-
-export type Paginated<T> = {
+type Paginated<T> = {
   pages: number;
   items: T[];
+};
+
+export type ProductsResponse = {
+  data: Paginated<Product>;
+};
+
+export type ErrorResponse = {
+  meta: Meta;
+  data: null;
+};
+
+export type AuthResponse = {
+  token: string;
 };

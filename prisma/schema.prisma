@@ -16,8 +16,8 @@ model Product {
   description   String           @db.Text
   price         Int
   stockQuantity Int
-  image         String
   creatorId     Int
+  image         String
   category      ProductCategory
   creator       User             @relation(fields: [creatorId], references: [id])
   history       ProductHistory[]
@@ -37,7 +37,7 @@ model ProductHistory {
   productId         Int
   changeDescription String
   changedAt         DateTime @default(now())
-  product           Product  @relation(fields: [productId], references: [id])
+  product           Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 enum ProductCategory {

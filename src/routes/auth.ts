@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { authUser } from "../handlers/auth";
-import authMiddleware from "../middlewares/auth-middleware";
-import userInfo from "../handlers/user-info";
+import auth from "@/controllers/auth/auth";
+import validateAuthToken from "@/middlewares/validate-auth-token";
+import getUserData from "@/controllers/auth/get-user-data";
+import verifyUserPassowrd from "@/middlewares/auth/verify-user-password";
 
 const authRouter = Router();
 
-authRouter.post("/login", authUser);
-
-authRouter.get("/me", authMiddleware, userInfo);
+authRouter.post("/login", verifyUserPassowrd, auth);
+authRouter.get("/", validateAuthToken, getUserData);
 
 export default authRouter;
