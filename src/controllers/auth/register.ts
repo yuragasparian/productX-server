@@ -16,7 +16,7 @@ const register = async (req: AuthRequest, res: Response) => {
     });
     const userId = newUser.id;
     const token = jwt.sign({ userName, userId }, env.JWT_SECRET);
-    successHandler(res, token);
+    successHandler(res, { item: token });
   } catch (err) {
     // hndling unique username error
     if (err instanceof Prisma.PrismaClientKnownRequestError) {

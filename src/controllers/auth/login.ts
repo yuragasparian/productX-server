@@ -10,7 +10,7 @@ const login = (req: AuthRequest, res: Response) => {
 
   const token = jwt.sign({ userName, userId }, env.JWT_SECRET);
 
-  successHandler(res, token);
+  successHandler(res, { item: token });
 };
 
 export default login;

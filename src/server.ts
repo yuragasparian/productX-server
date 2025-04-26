@@ -24,7 +24,7 @@ app.use(compression());
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "uploads")));
-app.use("/profile", authRouter);
+app.use("/auth", authRouter);
 app.use("/products", productRouter);
 
 app.listen(env.PORT, () => {

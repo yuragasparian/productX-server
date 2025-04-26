@@ -20,8 +20,10 @@ const verifyUserPassword = async (
     }
     req.userId = user.id;
     next();
-  } catch {
-    errorHandler(res, 4001);
+  } catch (err) {
+    console.log("err", err);
+
+    errorHandler(res, 4011);
   }
 };
 

@@ -17,7 +17,7 @@ const getUserData = async (req: Request, res: Response) => {
         image: true,
       },
     });
-    successHandler(res, user);
+    successHandler(res, { item: user });
   } catch {
     errorHandler(res, 4010);
   }

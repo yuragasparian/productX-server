@@ -4,6 +4,7 @@ import type { Prisma } from "@prisma/client";
 import prisma from "@/utils/prisma-client";
 import successHandler from "@/handlers/success";
 
+// add type
 const statusFilter = {
   out_of_stock: { stock_quantity: { equals: 0 } },
   low_stock: { stock_quantity: { lt: 20 } },
@@ -35,20 +36,24 @@ export async function getProducts(
     };
   }
 
+  const offset = (page - 1) * rows_per_page;
+
+  const [products, count] = await Promise.all([
+    prisma.product.findMany({
+      where: filters,
+      include: { history: true },
+      orderBy: { createdAt: "desc" },
+      skip: offset,
+      take: rows_per_page,
+    }),
+    prisma.product.count({
+      where: filters,
+    }),
+  ]);
+
   // Fetching the products with filters, pagination, and sorting
-  const products = await prisma.product.findMany({
-    where: filters,
-    include: { history: true },
-    orderBy: { createdAt: "desc" },
-    skip: (page - 1) * rows_per_page,
-    take: rows_per_page,
-  });
 
-  const totalProducts = await prisma.product.count({
-    where: filters,
-  });
-
-  const pages = Math.ceil(totalProducts / rows_per_page);
+  const pages = Math.ceil(count / rows_per_page);
 
   successHandler(res, { items: products, pages });
 }

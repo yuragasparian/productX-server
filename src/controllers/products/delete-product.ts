@@ -14,7 +14,7 @@ const deleteProduct = async (req: ProductUpdateRequest, res: Response) => {
         where: { id },
       })
       .then(() => {
-        successHandler(res, id);
+        successHandler(res, { item: id });
       });
   } catch (err) {
     errorHandler(res, 5000);

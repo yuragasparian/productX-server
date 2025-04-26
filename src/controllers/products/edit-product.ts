@@ -3,7 +3,6 @@ import type { ProductUpdateRequest } from "@/types/express/requests";
 import errorHandler from "@/handlers/error";
 import prisma from "@/utils/prisma-client";
 import successHandler from "@/handlers/success";
-import type { ProductWithHistory } from "@/types/products";
 import { Prisma, Product } from "@prisma/client";
 import { typedKeys } from "@/utils/utils";
 
@@ -12,11 +11,10 @@ const editProduct = async (req: ProductUpdateRequest, res: Response) => {
   const product = req.body;
   const image = req.file?.filename;
 
-  product.image = image;
+  if (image) product.image = image;
 
   try {
     //detecting if field actualy changed + generating change history, excluding image field
-    // --issue-- when field exists but is the same as in database, it still being updated
     const changes: string[] = [];
     for (const key of typedKeys(product)) {
       if (key === "image") continue;
@@ -43,7 +41,7 @@ const editProduct = async (req: ProductUpdateRequest, res: Response) => {
       },
     });
 
-    successHandler<ProductWithHistory>(res, updatedProduct);
+    successHandler(res, { item: updatedProduct });
   } catch (err) {
     // hndling unique sku error
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
