@@ -8,7 +8,7 @@ const verifyUserPassword = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction
-): Promise<void> => {
+) => {
   const { userName, password } = req.body;
 
   try {
@@ -19,6 +19,7 @@ const verifyUserPassword = async (
       throw new Error();
     }
     req.userId = user.id;
+    req.role = user.role;
     next();
   } catch (err) {
     errorHandler(res, 4011);

@@ -21,7 +21,7 @@ productRouter.get("/csv", exportProductsCSV);
 
 productRouter.put(
   "/:id",
-  validateIdParam(),
+  validateIdParam,
   verifyProductOwnership,
   upload.single("image"),
   validateProductEdit,
@@ -29,7 +29,7 @@ productRouter.put(
 );
 productRouter.delete(
   "/:id",
-  validateIdParam(),
+  validateIdParam,
   verifyProductOwnership,
   deleteProduct
 );

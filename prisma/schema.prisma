@@ -29,6 +29,7 @@ model User {
   userName String    @unique
   password String
   image    String
+  role     Role
   products Product[]
 }
 
@@ -51,4 +52,9 @@ enum ProductCategory {
   Furniture
   Toys
   Automotive
+}
+
+enum Role {
+  Admin
+  Moderator
 }

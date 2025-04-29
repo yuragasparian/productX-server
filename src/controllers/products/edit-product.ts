@@ -10,7 +10,6 @@ const editProduct = async (req: ProductUpdateRequest, res: Response) => {
   const existingProduct = req.existingProduct as Product;
   const product = req.body;
   const image = req.file?.filename;
-  console.log(product);
 
   if (image) product.image = image;
 
