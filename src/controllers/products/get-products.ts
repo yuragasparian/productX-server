@@ -6,9 +6,9 @@ import successHandler from "@/handlers/success";
 
 // add type
 const statusFilter = {
-  out_of_stock: { stock_quantity: { equals: 0 } },
-  low_stock: { stock_quantity: { lt: 20 } },
-  in_stock: { stock_quantity: { gte: 20 } },
+  out_of_stock: { stockQuantity: { equals: 0 } },
+  low_stock: { stockQuantity: { lt: 20 } },
+  in_stock: { stockQuantity: { gte: 20 } },
 } as const;
 
 export async function getProducts(
@@ -17,7 +17,7 @@ export async function getProducts(
 ) {
   const userId = req.userId;
   const page = Number(req.query.page as string) || 1;
-  const rows_per_page = Number(req.query.rows_per_page as string) || 10;
+  const rows_per_page = Number(req.query.rows_per_page as string) || 6;
   const { query, status } = req.query;
 
   const filters: Prisma.ProductWhereInput = {

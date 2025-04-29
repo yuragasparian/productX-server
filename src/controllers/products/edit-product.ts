@@ -10,6 +10,7 @@ const editProduct = async (req: ProductUpdateRequest, res: Response) => {
   const existingProduct = req.existingProduct as Product;
   const product = req.body;
   const image = req.file?.filename;
+  console.log(product);
 
   if (image) product.image = image;
 
@@ -43,12 +44,15 @@ const editProduct = async (req: ProductUpdateRequest, res: Response) => {
 
     successHandler(res, { item: updatedProduct });
   } catch (err) {
+    console.log(err);
+
     // hndling unique sku error
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
         errorHandler(res, 4091);
       }
     }
+
     errorHandler(res, 5000);
   }
 };

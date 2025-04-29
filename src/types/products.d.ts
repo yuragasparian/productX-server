@@ -3,12 +3,12 @@ import type { Prisma, ProductCategory } from "@prisma/client";
 export type ProductFormData = {
   name: string;
   sku: number;
-  description: string;
   price: number;
+  category: ProductCategory;
   stockQuantity: number;
   image: string;
+  description: string;
   creatorId: number;
-  category: ProductCategory;
 };
 
 export type StringProductFormData = { [K in keyof ProductFormData]: string };

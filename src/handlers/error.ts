@@ -6,8 +6,10 @@ const errorMessages = {
 
   4010: "Unauthorized",
   4011: "Invalid username or password",
+  4012: "Product id is invalid",
 
   4220: "One or more fields contain invalid data",
+  4221: "Form data is empty",
 
   4040: "Not found",
   4041: "Product not found",
