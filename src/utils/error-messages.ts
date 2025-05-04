@@ -22,6 +22,7 @@ export const errorMessages = {
 
   4040: "Not found",
   4041: "Product not found",
+  4042: "Product list is empty",
 
   4090: "Username already exists",
   4091: "Product SKU must be unique",

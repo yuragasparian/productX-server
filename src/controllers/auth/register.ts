@@ -17,9 +17,10 @@ const register = async (req: AuthRequest, res: Response) => {
         id: true,
         userName: true,
         image: true,
+        role: true,
       },
     });
-    successHandler(res, { item: { newUser } });
+    successHandler(res, { item: { ...newUser } });
   } catch (err) {
     // hndling unique username error
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
@@ -27,8 +28,6 @@ const register = async (req: AuthRequest, res: Response) => {
         errorHandler(res, 4090);
       }
     }
-    console.log(err);
-
     errorHandler(res, 5000);
   }
 };

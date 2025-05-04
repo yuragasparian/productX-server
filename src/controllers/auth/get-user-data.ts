@@ -15,6 +15,7 @@ const getUserData = async (req: Request, res: Response) => {
         id: true,
         userName: true,
         image: true,
+        role: true,
       },
     });
     successHandler(res, { item: user });

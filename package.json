@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "dotenv -- tsc-watch --onSuccess \"node dist/server.js\"",
-    "build": "tsc"
+    "build": "tsc",
+    "postBuild": "cp package.json .env dist/"
   },
   "keywords": [],
   "author": "",

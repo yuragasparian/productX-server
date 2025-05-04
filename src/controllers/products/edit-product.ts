@@ -20,9 +20,13 @@ const editProduct = async (req: ProductUpdateRequest, res: Response) => {
       if (key === "image") continue;
 
       if (product[key] !== existingProduct[key]) {
-        changes.push(
-          `Field '${key}' changed from '${existingProduct[key]}' to '${product[key]}'`
-        );
+        if (key === "description") {
+          changes.push("Field description changed");
+        } else {
+          changes.push(
+            `Field '${key}' changed from '${existingProduct[key]}' to '${product[key]}'`
+          );
+        }
       }
     }
 
