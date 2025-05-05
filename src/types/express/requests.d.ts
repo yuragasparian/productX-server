@@ -1,7 +1,7 @@
 import type { Request } from "express";
 import type { UserAuthData } from "@/types/users";
 import type { ProductFormData, StringProductFormData } from "@/types/products";
-import { Product } from "@prisma/client";
+import { Product } from "@/prisma/client";
 
 export type AuthRequest = Request<{}, {}, UserAuthData>;
 

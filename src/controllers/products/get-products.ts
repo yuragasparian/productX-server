@@ -1,6 +1,6 @@
 import type { ProductsResponse } from "@/types/express/response";
 import type { Request, Response } from "express";
-import type { Prisma } from "@prisma/client";
+import type { Prisma } from "@/prisma/client";
 import prisma from "@/utils/prisma-client";
 import successHandler from "@/handlers/success";
 

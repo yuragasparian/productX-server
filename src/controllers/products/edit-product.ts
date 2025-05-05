@@ -3,7 +3,7 @@ import type { ProductUpdateRequest } from "@/types/express/requests";
 import errorHandler from "@/handlers/error";
 import prisma from "@/utils/prisma-client";
 import successHandler from "@/handlers/success";
-import { Prisma, Product } from "@prisma/client";
+import { Prisma, Product } from "@/prisma/client";
 import { typedKeys } from "@/utils/utils";
 
 const editProduct = async (req: ProductUpdateRequest, res: Response) => {
@@ -47,8 +47,6 @@ const editProduct = async (req: ProductUpdateRequest, res: Response) => {
 
     successHandler(res, { item: updatedProduct });
   } catch (err) {
-    console.log(err);
-
     // hndling unique sku error
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {

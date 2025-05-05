@@ -1,4 +1,4 @@
-import type { Prisma, ProductCategory } from "@prisma/client";
+import type { Prisma, ProductCategory } from "@/prisma/client";
 
 export type ProductFormData = {
   name: string;

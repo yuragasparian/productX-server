@@ -20,7 +20,7 @@ const parseProductForm = (req: Request, res: Response, next: NextFunction) => {
         .parse(req.body[field]);
     });
     next();
-  } catch (err) {
+  } catch (err: unknown) {
     errorHandler(res, 4220);
   }
 };

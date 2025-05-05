@@ -21,7 +21,7 @@ const verifyUserPassword = async (
     req.userId = user.id;
     req.role = user.role;
     next();
-  } catch (err) {
+  } catch (err: unknown) {
     errorHandler(res, 4011);
   }
 };

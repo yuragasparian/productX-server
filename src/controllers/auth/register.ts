@@ -2,7 +2,7 @@ import type { Response } from "express";
 import type { AuthRequest } from "@/types/express/requests";
 import successHandler from "../../handlers/success";
 import prisma from "@/utils/prisma-client";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/prisma/client";
 import errorHandler from "@/handlers/error";
 import createHashedPassword from "@/utils/create-hashed-password";
 
@@ -21,7 +21,7 @@ const register = async (req: AuthRequest, res: Response) => {
       },
     });
     successHandler(res, { item: { ...newUser } });
-  } catch (err) {
+  } catch (err: unknown) {
     // hndling unique username error
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code === "P2002") {

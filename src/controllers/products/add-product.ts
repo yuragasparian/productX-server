@@ -4,7 +4,7 @@ import type { ProductFormData } from "@/types/products";
 import errorHandler from "@/handlers/error";
 import successHandler from "@/handlers/success";
 import prisma from "@/utils/prisma-client";
-import { Prisma } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@/prisma/client/runtime/library";
 
 const addProduct = async (
   req: ProductAddRequest<ProductFormData>,
@@ -32,9 +32,9 @@ const addProduct = async (
       },
     });
     successHandler(res, { item: newProduct });
-  } catch (err) {
+  } catch (err: unknown) {
     // ahndling unique sku error
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
         return errorHandler(res, 4091);
       }

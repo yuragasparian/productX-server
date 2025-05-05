@@ -2,10 +2,11 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "dotenv -- tsc-watch --onSuccess \"node dist/server.js\"",
-    "build": "tsc",
+    "build": "npx prisma generate && tsc && mkdir -p dist/prisma && cp -r src/prisma/client dist/prisma/client",
+    "start": "node dist/server.js",
     "postBuild": "cp package.json .env dist/"
   },
   "keywords": [],
@@ -41,7 +42,7 @@
     "typescript-eslint": "^8.30.1"
   },
   "dependencies": {
-    "@prisma/client": "^6.5.0",
+    "@prisma/client": "^6.7.0",
     "bcryptjs": "^3.0.2",
     "body-parser": "^2.2.0",
     "compression": "^1.8.0",

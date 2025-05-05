@@ -1,7 +1,7 @@
 import type { NextFunction, Response } from "express";
 import errorHandler from "@/handlers/error";
 import type { AuthRequest } from "@/types/express/requests";
-import { Role } from "@prisma/client";
+import { Role } from "@/prisma/client";
 
 const verifyRoleAdmin = (
   req: AuthRequest,

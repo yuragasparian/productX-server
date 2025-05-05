@@ -1,6 +1,6 @@
 import { zfd } from "zod-form-data";
 import { z } from "zod";
-import { Role } from "@prisma/client";
+import { Role } from "@/prisma/client";
 
 const RoleEnum = z.enum([Role.Admin, Role.Moderator], { message: "4057" });
 

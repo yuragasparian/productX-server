@@ -28,5 +28,5 @@ app.use("/auth", authRouter);
 app.use("/products", productRouter);
 
 app.listen(env.PORT, () => {
-  console.log("Server is running on", env.SERVER_URL);
+  console.log("Server is running on", env.IP);
 });
