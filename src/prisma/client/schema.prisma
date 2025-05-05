@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            Int              @id @default(autoincrement())
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  name          String
+  sku           Int              @unique
+  description   String           @db.Text
+  price         Int
+  stockQuantity Int
+  creatorId     Int
+  image         String
+  category      ProductCategory
+  creator       User             @relation(fields: [creatorId], references: [id])
+  history       ProductHistory[]
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  userName String    @unique
+  password String
+  image    String
+  role     Role
+  products Product[]
+}
+
+model ProductHistory {
+  id                Int      @id @default(autoincrement())
+  productId         Int
+  changeDescription String
+  changedAt         DateTime @default(now())
+  product           Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+enum ProductCategory {
+  Electronics
+  Clothing
+  HomeAppliances
+  Books
+  Beauty
+  Sports
+  Food
+  Furniture
+  Toys
+  Automotive
+}
+
+enum Role {
+  Admin
+  Moderator
+}
